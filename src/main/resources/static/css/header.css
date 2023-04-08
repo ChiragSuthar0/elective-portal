@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+}
+
+header {
+    padding: 10px auto;
+}
+
+.container {
+    max-width: 1366px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.nav-item-bar {
+    display: table;
+    padding: 0;
+}
+
+.nav-item {
+    display: table-cell;
+    padding: 10px 20px;
+}

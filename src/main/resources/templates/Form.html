@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Electives | ICT</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo left">
+                    <img th:src="@{/images/logo.png}" alt="Logo">
+                </div>
+                <div class="right">
+                    <ul class="nav-item-bar">
+                        <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                        <li class="nav-item" th:if="${user.currentSemester > 3}"><a th:href="@{/upload}" class="nav-link">Upload Documents</a></li>
+                        <li class="nav-item"><a th:href="@{/choice-filling}" class="nav-link">Choice Filling</a></li>
+                        <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div th:if="${less_than_5_subjects}" class="col-md-8 mx-auto">
+                    <p class="alert alert-primary" th:text="${less_than_5_subjects}"></p>
+                </div>
+                <div class="center-heading">
+                    <h1>Choose 5 Subjects of your Choice</h1>
+                </div>
+                <div class="form-container">
+                    <form th:name="myForm" th:action="@{/choice-filling}" th:method="post">
+                        <div class="form-items">
+                            <label class="form-elem" for="choice_1">First Preference</label>
+                            <select class="form-elem" name="choice_1" id="choice_1" required>
+                                <option value="" selected disabled>Choice 1</option>
+                                <th:block th:each="subject: ${subjectDetails}">
+                                    <option th:value="${subject.name}" th:text="${subject.name}"
+                                            th:class="${subject.name}+_option"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <label class="form-elem" for="choice_2">Second Preference</label>
+                            <select class="form-elem" name="choice_2" id="choice_2" required>
+                                <option value="" selected disabled>Choice 2</option>
+                                <th:block th:each="subject: ${subjectDetails}">
+                                    <option th:value="${subject.name}" th:text="${subject.name}"
+                                            th:class="${subject.name}+_option"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <label class="form-elem" for="choice_3">Third Preference</label>
+                            <select class="form-elem" name="choice_3" id="choice_3" required>
+                                <option value="" selected disabled>Choice 3</option>
+                                <th:block th:each="subject: ${subjectDetails}">
+                                    <option th:value="${subject.name}" th:text="${subject.name}"
+                                            th:class="${subject.name}+_option"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <label class="form-elem" for="choice_4">Forth Preference</label>
+                            <select class="form-elem" name="choice_4" id="choice_4" required>
+                                <option value="" selected disabled>Choice 4</option>
+                                <th:block th:each="subject: ${subjectDetails}">
+                                    <option th:value="${subject.name}" th:text="${subject.name}"
+                                            th:class="${subject.name}+_option"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <label class="form-elem" for="choice_5">Fifth Preference</label>
+                            <select class="form-elem" name="choice_5" id="choice_5" required>
+                                <option value="" selected disabled>Choice 5</option>
+                                <th:block th:each="subject: ${subjectDetails}">
+                                    <option th:value="${subject.name}" th:text="${subject.name}"
+                                            th:class="${subject.name}+_option"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <input type="submit" value="Submit" id="submitBtn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

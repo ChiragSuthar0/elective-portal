@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo left">
+                <img th:src="@{/images/logo.png}" alt="Logo">
+            </div>
+            <div class="right">
+                <ul class="nav-item-bar">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section>
+    <div style="text-align: center;">
+        <h1>There was an Error</h1>
+    </div>
+    <div th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+</section>
+
+</body>
+
+</html>
