@@ -16,7 +16,7 @@
     <header>
         <div class="container navbar">
             <div class="logo left">
-                <a href="#"><img src="../static/Assets/logo.svg" alt="Logo"></a>
+                <a href="#"><img src="../static/Assets/logo.svg" th:src="@{/assets/images/logo.svg}" alt="Logo"></a>
             </div>
             <div class="middle">
                 <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
@@ -34,7 +34,7 @@
             </div>
             <div class="right">
                 <a href="#" class="current-user bold-text">
-                    <img src="./../static/Assets/user.png" alt="">
+                    <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
                     <span>Username</span>
                 </a>
             </div>

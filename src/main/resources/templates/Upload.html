@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload</title>
     <link rel="stylesheet" href="../static/assets/css/reset.css" th:href="@{/assets/css/reset.css}">
     <link rel="stylesheet" href="../static/assets/css/home.css" th:href="@{/assets/css/home.css}">
@@ -14,7 +17,7 @@
     <header>
         <div class="container navbar">
             <div class="logo left">
-                <a href="#"><img src="../static/Assets/logo.svg" alt="Logo"></a>
+                <a href="#"><img src="../static/Assets/logo.svg" th:src="@{/assets/images/logo.svg}" alt="Logo"></a>
             </div>
             <div class="middle">
                 <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
@@ -32,7 +35,7 @@
             </div>
             <div class="right">
                 <a href="#" class="current-user bold-text">
-                    <img src="./../static/Assets/user.png" alt="">
+                    <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
                     <span>Username</span>
                 </a>
             </div>

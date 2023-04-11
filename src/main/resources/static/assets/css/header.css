@@ -48,7 +48,7 @@
 }
 
 .middle {
-    flex: 0 0 45%;
+    flex: 0 0 33%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -78,11 +78,11 @@
 
 @media (max-width: 1280px) {
     .middle {
-        flex: 0 0 60%;
+        flex: 0 0 45%;
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .middle {
         flex: 0 0 100%;
         order: 1
