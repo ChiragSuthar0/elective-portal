@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>File Upload</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/form.css}">
-    <link rel="stylesheet" th:href="@{/css/uploadForm.css}">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/home.css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/form.css" th:href="@{/css/form.css}">
+    <link rel="stylesheet" href="../static/css/uploadForm.css" th:href="@{/css/uploadForm.css}">
 </head>
+
 <body>
-<header>
-    <div class="container">
-        <nav class="navbar">
+    <header>
+        <div class="container navbar">
             <div class="logo left">
-                <img th:src="@{/images/logo.png}" alt="Logo">
+                <a href="#"><img src="../static/Assets/logo.svg" alt="Logo"></a>
+            </div>
+            <div class="middle">
+                <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()" th:if="${user.currentSemester > 3}"><a href="#"
+                        th:href="@{/upload}" class="nav-link">Upload Documents</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/choice-filling}"
+                        class="nav-link">Choice Filling</a></div>
+                <div class="nav-item seperator"></div>
+                <div class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="#"
+                        th:href="@{/login}">Login</a>
+                </div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/logout}"
+                        class="nav-link">Log
+                        Out</a></div>
             </div>
             <div class="right">
-                <ul class="nav-item-bar">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
-                    <li class="nav-item" th:if="${user.currentSemester > 3}"><a th:href="@{/upload}" class="nav-link">Upload Documents</a></li>
-                    <li class="nav-item"><a th:href="@{/choice-filling}" class="nav-link">Choice Filling</a></li>
-                    <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
-                </ul>
+                <a href="#" class="current-user bold-text">
+                    <img src="./../static/Assets/user.png" alt="">
+                    <span>Username</span>
+                </a>
             </div>
-        </nav>
-    </div>
-</header>
-<section>
-    <div class="container container-main">
-        <div class="row" th:if="${errorMessage}">
-            <p th:text="${errorMessage}"></p>
         </div>
-        <div class="center-heading">
-            <h2>Upload File Example</h2>
-        </div>
-        <div class="form-container">
-            <div class="myForm">
-                <p class="alert alert-primary-green" id="file-result">[MAX FILE SIZE = 2MB]</p>
-                <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-                <form method="post" name="uploadingForm" th:action="@{/upload}" enctype="multipart/form-data">
+    </header>
+
+    <section>
+        <div class="container container-main">
+            <div class="row" th:if="${errorMessage}">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="center-heading">
+                <h2>Upload File Example</h2>
+            </div>
+            <div class="form-container">
+                <div class="myForm">
+                    <p class="alert alert-primary-green" id="file-result">[MAX FILE SIZE = 2MB]</p>
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                    <form method="post" name="uploadingForm" th:action="@{/upload}" enctype="multipart/form-data">
                         <div class="form-items">
                             <label for="file">Elective Mark Sheet</label>
                             <input type="file" name="file" id="file" accept="application/pdf">
@@ -46,19 +60,21 @@
                             <label for="semester">Semester</label>
                             <select name="semester" id="semester">
                                 <th:block th:if="${user.currentSemester} >= 3">
-                                    <option th:each="i : ${#numbers.sequence(3, user.currentSemester)}" th:value="${i}" th:text="Semester+' '+${i}"></option>
+                                    <option th:each="i : ${#numbers.sequence(3, user.currentSemester)}" th:value="${i}"
+                                        th:text="Semester+' '+${i}"></option>
                                 </th:block>
                             </select>
                         </div>
-                    <div class="form-items">
-                        <button type="submit" id="submitBtn">Upload File</button>
-                    </div>
-                </form>
+                        <div class="form-items">
+                            <button type="submit" id="submitBtn">Upload File</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<script th:src="@{/js/upload.js}"></script>
+    </section>
+    <script th:src="@{/js/upload.js}"></script>
 
 </body>
+
 </html>

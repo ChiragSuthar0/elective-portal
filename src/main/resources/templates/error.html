@@ -3,34 +3,61 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error</title>
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/error.css">
 </head>
 
 <body>
 
-<header>
-    <div class="container">
-        <nav class="navbar">
+    <header>
+        <div class="container navbar">
             <div class="logo left">
-                <img th:src="@{/images/logo.png}" alt="Logo">
+                <a href="#"><img src="../static/Assets/logo.svg" alt="Logo"></a>
+            </div>
+            <div class="middle">
+                <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()" th:if="${user.currentSemester > 3}"><a href="#"
+                        th:href="@{/upload}" class="nav-link">Upload Documents</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/choice-filling}"
+                        class="nav-link">Choice Filling</a></div>
+                <div class="nav-item seperator"></div>
+                <div class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="#"
+                        th:href="@{/login}">Login</a>
+                </div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/logout}"
+                        class="nav-link">Log
+                        Out</a></div>
             </div>
             <div class="right">
-                <ul class="nav-item-bar">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
-                </ul>
+                <a href="#" class="current-user bold-text">
+                    <img src="./../static/Assets/user.png" alt="">
+                    <span>Username</span>
+                </a>
             </div>
-        </nav>
-    </div>
-</header>
+        </div>
+    </header>
 
-<section>
-    <div style="text-align: center;">
-        <h1>There was an Error</h1>
-    </div>
-    <div th:if="${errorMessage}">
-        <p th:text="${errorMessage}"></p>
-    </div>
-</section>
+    <section>
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <div id="notfound">
+            <div class="notfound">
+                <div>
+                    <div class="notfound-404">
+                        <h1>!</h1>
+                    </div>
+                    <h2>Error<br>Happened</h2>
+                </div>
+                <p>The page you are looking for might have been removed had its name changed or is temporarily
+                    unavailable. <a href="#">Back to homepage</a></p>
+            </div>
+        </div>
+    </section>
 
 </body>
 

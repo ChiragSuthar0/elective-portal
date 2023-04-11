@@ -4,27 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Choose Electives | ICT</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/form.css}">
+    <link rel="stylesheet" href="../static/css/reset.css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" href="./../static/css/home.css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" href="./../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="./../static/css/form.css" th:href="@{/css/form.css}">
 </head>
 
 <body>
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo left">
-                    <img th:src="@{/images/logo.png}" alt="Logo">
+        <div class="container navbar">
+            <div class="logo left">
+                <a href="#"><img src="../static/Assets/logo.svg" alt="Logo"></a>
+            </div>
+            <div class="middle">
+                <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()" th:if="${user.currentSemester > 3}"><a href="#"
+                        th:href="@{/upload}" class="nav-link">Upload Documents</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/choice-filling}"
+                        class="nav-link">Choice Filling</a></div>
+                <div class="nav-item seperator"></div>
+                <div class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="#"
+                        th:href="@{/login}">Login</a>
                 </div>
-                <div class="right">
-                    <ul class="nav-item-bar">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
-                        <li class="nav-item" th:if="${user.currentSemester > 3}"><a th:href="@{/upload}" class="nav-link">Upload Documents</a></li>
-                        <li class="nav-item"><a th:href="@{/choice-filling}" class="nav-link">Choice Filling</a></li>
-                        <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
-                    </ul>
-                </div>
-            </nav>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/logout}"
+                        class="nav-link">Log
+                        Out</a></div>
+            </div>
+            <div class="right">
+                <a href="#" class="current-user bold-text">
+                    <img src="./../static/Assets/user.png" alt="">
+                    <span>Username</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -45,7 +56,7 @@
                                 <option value="" selected disabled>Choice 1</option>
                                 <th:block th:each="subject: ${subjectDetails}">
                                     <option th:value="${subject.name}" th:text="${subject.name}"
-                                            th:class="${subject.name}+_option"></option>
+                                        th:class="${subject.name}+_option"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -55,7 +66,7 @@
                                 <option value="" selected disabled>Choice 2</option>
                                 <th:block th:each="subject: ${subjectDetails}">
                                     <option th:value="${subject.name}" th:text="${subject.name}"
-                                            th:class="${subject.name}+_option"></option>
+                                        th:class="${subject.name}+_option"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -65,7 +76,7 @@
                                 <option value="" selected disabled>Choice 3</option>
                                 <th:block th:each="subject: ${subjectDetails}">
                                     <option th:value="${subject.name}" th:text="${subject.name}"
-                                            th:class="${subject.name}+_option"></option>
+                                        th:class="${subject.name}+_option"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -75,7 +86,7 @@
                                 <option value="" selected disabled>Choice 4</option>
                                 <th:block th:each="subject: ${subjectDetails}">
                                     <option th:value="${subject.name}" th:text="${subject.name}"
-                                            th:class="${subject.name}+_option"></option>
+                                        th:class="${subject.name}+_option"></option>
                                 </th:block>
                             </select>
                         </div>
@@ -85,7 +96,7 @@
                                 <option value="" selected disabled>Choice 5</option>
                                 <th:block th:each="subject: ${subjectDetails}">
                                     <option th:value="${subject.name}" th:text="${subject.name}"
-                                            th:class="${subject.name}+_option"></option>
+                                        th:class="${subject.name}+_option"></option>
                                 </th:block>
                             </select>
                         </div>
