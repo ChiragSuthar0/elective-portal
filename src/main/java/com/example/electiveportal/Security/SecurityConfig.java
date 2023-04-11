@@ -18,37 +18,37 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-//        UserDetails superUser = User.withUsername("admin")
-//                .password(passwordEncoder().encode("password"))
-//                .roles("SUPER_ADMIN")
-//                .build();
-//
-//        UserDetails adminUser = User.withUsername("Mohendra Roy")
-//                .password(passwordEncoder().encode("password"))
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(superUser, adminUser);
+        // UserDetails superUser = User.withUsername("admin")
+        // .password(passwordEncoder().encode("password"))
+        // .roles("SUPER_ADMIN")
+        // .build();
+        //
+        // UserDetails adminUser = User.withUsername("Mohendra Roy")
+        // .password(passwordEncoder().encode("password"))
+        // .roles("ADMIN")
+        // .build();
+        //
+        // return new InMemoryUserDetailsManager(superUser, adminUser);
         return new CustomUserDetailsService();
     }
 
-//    @Bean
-//    public UserDetailsService fromDataBase() {
-//        return new CustomUserDetailsService();
-//    }
+    // @Bean
+    // public UserDetailsService fromDataBase() {
+    // return new CustomUserDetailsService();
+    // }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .authorizeHttpRequests()
-            .requestMatchers("/home", "/", "/css/**", "/js/**", "/images/**", "/uploads/**")
-            .permitAll()
-            .requestMatchers("/choice-filling", "/upload")
-            .authenticated()
-            .and()
-            .formLogin()
-            .defaultSuccessUrl("/home", true);
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/home", "/", "/assets/**", "/error")
+                .permitAll()
+                .requestMatchers("/choice-filling", "/upload")
+                .authenticated()
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/home", true);
 
         return http.build();
     }
