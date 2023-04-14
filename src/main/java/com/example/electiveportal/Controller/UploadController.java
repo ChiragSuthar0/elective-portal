@@ -34,7 +34,7 @@ public class UploadController {
     @Autowired
     MarkSheetDetailsServiceImpl marksheetServ;
 
-    private final String UPLOAD_DIR = "~/Uploads/";
+    private final String UPLOAD_DIR = "./Uploads/";
 
     @GetMapping("/upload")
     public String upload(Model model, @AuthenticationPrincipal UserDetails userDetails) {
@@ -60,13 +60,14 @@ public class UploadController {
             try {
                 Path path = Paths.get(UPLOAD_DIR + userDetails.getUsername() + "_Semester_" + sem
                         + (fileName.matches(".*[.]pdf") ? ".pdf" : ".docx"));
+                System.out.println(path.toString());
                 if (new File(path.toString()).exists()) {
                     System.out.println(path);
                     attributes.addFlashAttribute("message", "File Already Exists");
                     return "redirect:/upload";
                 } else {
                     // File file1 = new File(path.toString());
-
+                    System.out.println(path);
                     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                     User user = userServ.getUserByRollNumber(userDetails.getUsername());
                     marksheetServ

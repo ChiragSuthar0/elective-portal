@@ -28,9 +28,9 @@ public class ElectivePortalApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // userRepo.deleteAll();
-        // User user = new User("Chirag", "Suthar", "19BIT022", "abcd@gmail.com",
-        // encoder.encode("Password"), 3);
-        // userRepo.save(user);
+        User user = new User("Brijesh", "Kavar", "19BIT021", "abcd@gmail.com",
+                encoder.encode("Password"), 8);
+        userRepo.save(user);
 
         // sdRepo.deleteAll();
         // SubjectDetails subjectDetails0 = new SubjectDetails("subject0", "SOT", "ICT",

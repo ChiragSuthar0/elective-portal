@@ -24,16 +24,13 @@ import java.util.Set;
 @Controller
 public class UserController {
 
-    final
-    UserService userService;
-    final
-    ElectiveDetailsService electiveDetailsService;
-    final
-    SubjectDetailsService subjectDetailsService;
-    final
-    ChoiceDetailsService choiceDetailsService;
+    final UserService userService;
+    final ElectiveDetailsService electiveDetailsService;
+    final SubjectDetailsService subjectDetailsService;
+    final ChoiceDetailsService choiceDetailsService;
 
-    public UserController(UserService userService, ElectiveDetailsService electiveDetailsService, SubjectDetailsService subjectDetailsService, ChoiceDetailsService choiceDetailsService) {
+    public UserController(UserService userService, ElectiveDetailsService electiveDetailsService,
+            SubjectDetailsService subjectDetailsService, ChoiceDetailsService choiceDetailsService) {
         this.userService = userService;
         this.electiveDetailsService = electiveDetailsService;
         this.subjectDetailsService = subjectDetailsService;
@@ -62,7 +59,8 @@ public class UserController {
     }
 
     @PostMapping("/choice-filling")
-    public String addChoices(RedirectAttributes redirectAttributes, @ModelAttribute("choiceDetails") ChoiceDetails choices, @AuthenticationPrincipal UserDetails userDetails) {
+    public String addChoices(RedirectAttributes redirectAttributes,
+            @ModelAttribute("choiceDetails") ChoiceDetails choices, @AuthenticationPrincipal UserDetails userDetails) {
         choices.setUserid(userService.getUserByRollNumber(userDetails.getUsername()));
 
         Set<String> setChoices = new HashSet<>(choices.getAllChoices());
@@ -76,7 +74,7 @@ public class UserController {
             choiceDetailsService.saveChoices(choices);
         } catch (DataAccessException e) {
             if (e.getCause() instanceof JDBCException sqlEx) {
-//                    SQLException sqlEx = (SQLException) e.getCause();
+                // SQLException sqlEx = (SQLException) e.getCause();
                 int sqlErrorCode = sqlEx.getErrorCode();
                 if (sqlErrorCode == 1062) {
                     redirectAttributes.addFlashAttribute("errorMessage", "You have already submitted your choices");
