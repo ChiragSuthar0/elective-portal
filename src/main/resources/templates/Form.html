@@ -33,9 +33,9 @@
                         Out</a></div>
             </div>
             <div class="right">
-                <a href="#" class="current-user bold-text">
+                <a href="/choice-details" class="current-user bold-text">
                     <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
-                    <span>Username</span>
+                    <span th:if="${user}" th:text="${user.firstName}"></span><span th:if="!${user}">Username</span>
                 </a>
             </div>
         </div>

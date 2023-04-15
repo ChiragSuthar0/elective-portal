@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/home", "/", "/assets/**", "/error")
                 .permitAll()
-                .requestMatchers("/choice-filling", "/upload")
+                .requestMatchers("/choice-filling", "/upload", "/choice-details")
                 .authenticated()
                 .and()
                 .formLogin()

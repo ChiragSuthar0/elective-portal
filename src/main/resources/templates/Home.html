@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/assets/css/reset.css" th:href="@{/assets/css/reset.css}">
     <link rel="stylesheet" href="../static/assets/css/header.css" th:href="@{/assets/css/header.css}">
     <link rel="stylesheet" href="../static/assets/css/home.css" th:href="@{/assets/css/home.css}">
+    <link rel="stylesheet" href="../static/assets/css/uploadForm.css" th:href="@{/assets/css/uploadForm.css}">
 </head>
 
 <body>
@@ -33,7 +34,7 @@
                         Out</a></div>
             </div>
             <div class="right">
-                <a href="#" class="current-user bold-text">
+                <a href="/choice-details" class="current-user bold-text">
                     <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
                     <span th:if="${user}" th:text="${user.firstName}"></span><span th:if="!${user}">Username</span>
                 </a>
@@ -43,6 +44,9 @@
 
     <section>
         <div class=" container main-container">
+            <div class="row alert alert-primary-green" th:if="${Message}">
+                <p th:text="${Message}"></p>
+            </div>
             <div class="center-heading main-heading-large">
                 <h1>Elective Choice Filling</h1>
             </div>
@@ -62,7 +66,8 @@
                     <li>Once you have filled your choices you will not have the option to alter the choices so
                         please
                         fill them carefully.</li>
-                    <li>You can check your filled choices in <a href="#">view my choices</a> from this link.</li>
+                    <li>You can check your filled choices in <a href="/choice-details">view my choices</a> from this
+                        link.</li>
                 </ul>
             </div>
         </div>

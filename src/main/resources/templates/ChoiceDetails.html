@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choice Details | ICT</title>
+    <link rel="stylesheet" th:href="@{/assets/css/reset.css}" href="../static/assets/css/reset.css">
+    <link rel="stylesheet" th:href="@{/assets/css/header.css}" href="../static/assets/css/header.css">
+    <link rel="stylesheet" th:href="@{/assets/css/home.css}" href="../static/assets/css/home.css">
+    <link rel="stylesheet" th:href="@{/assets/css/form.css}" href="../static/assets/css/form.css">
+</head>
+
+<body>
+    <header>
+        <div class="container navbar">
+            <div class="logo left">
+                <a href="#"><img src="../static/Assets/logo.svg" th:src="@{/assets/images/logo.svg}" alt="Logo"></a>
+            </div>
+            <div class="middle">
+                <div class="nav-item"><a class="nav-link" href="#" th:href="@{/home}">Home</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()" th:if="${user.currentSemester > 3}"><a href="#"
+                        th:href="@{/upload}" class="nav-link">Upload Documents</a></div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/choice-filling}"
+                        class="nav-link">Choice Filling</a></div>
+                <div class="nav-item seperator"></div>
+                <div class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" href="#"
+                        th:href="@{/login}">Login</a>
+                </div>
+                <div class="nav-item" sec:authorize="isAuthenticated()"><a href="#" th:href="@{/logout}"
+                        class="nav-link">Log
+                        Out</a></div>
+            </div>
+            <div class="right">
+                <a href="/choice-details" class="current-user bold-text">
+                    <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
+                    <span th:if="${user}" th:text="${user.firstName}"></span><span th:if="!${user}">Username</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="center-heading">
+                <h1>Choice Details</h1>
+            </div>
+            <div class="choice-details-container">
+                <div class="form-items" th:if="${userChoices ne null}">
+                    <div class="form-elem"><span>Choice_1</span></div>
+                    <div class="form-elem choice_det"><span th:text="${userChoices.choice_1}"></span></div>
+                </div>
+                <div class="form-items" th:if="${userChoices ne null}">
+                    <div class="form-elem"><span>Choice_2</span></div>
+                    <div class="form-elem choice_det"><span th:text="${userChoices.choice_2}"></span></div>
+                </div>
+                <div class="form-items" th:if="${userChoices ne null}">
+                    <div class="form-elem"><span>Choice_3</span></div>
+                    <div class="form-elem choice_det"><span th:text="${userChoices.choice_3}"></span></div>
+                </div>
+                <div class="form-items" th:if="${userChoices ne null}">
+                    <div class="form-elem"><span>Choice_4</span></div>
+                    <div class="form-elem choice_det"><span th:text="${userChoices.choice_4}"></span></div>
+                </div>
+                <div class="form-items" th:if="${userChoices ne null}">
+                    <div class="form-elem"><span>Choice_5</span></div>
+                    <div class="form-elem choice_det"><span th:text="${userChoices.choice_5}"></span></div>
+                </div>
+                <div class="alert alert-primary-red" th:if="${userChoices eq null}">
+                    <p>You have not filled any Choices Yet...</p>
+                    <p>Please go to <a th:href="@{/choice-filling}" style="text-decoration: underline;">Choice
+                            Filling</a> to select choices.</p>
+                </div>
+                <div class="form-items">
+                    <button id="submitBtn"><a href="/home" style="color: white;">Go Back Home</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

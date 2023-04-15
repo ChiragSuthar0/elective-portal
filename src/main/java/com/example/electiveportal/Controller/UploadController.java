@@ -1,9 +1,13 @@
 package com.example.electiveportal.Controller;
 
-import com.example.electiveportal.Entity.MarkSheetDetails;
-import com.example.electiveportal.Entity.User;
-import com.example.electiveportal.Service.Impl.MarkSheetDetailsServiceImpl;
-import com.example.electiveportal.Service.Impl.UserServiceImpl;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
+
 import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -18,13 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
+import com.example.electiveportal.Entity.MarkSheetDetails;
+import com.example.electiveportal.Entity.User;
+import com.example.electiveportal.Service.Impl.MarkSheetDetailsServiceImpl;
+import com.example.electiveportal.Service.Impl.UserServiceImpl;
 
 @Controller
 public class UploadController {
@@ -34,7 +35,7 @@ public class UploadController {
     @Autowired
     MarkSheetDetailsServiceImpl marksheetServ;
 
-    private final String UPLOAD_DIR = "./Uploads/";
+    private final String UPLOAD_DIR = "Elective_Portal_Uploads/";
 
     @GetMapping("/upload")
     public String upload(Model model, @AuthenticationPrincipal UserDetails userDetails) {
@@ -57,30 +58,33 @@ public class UploadController {
             // normalize the file path
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             // save the file on the local file system
-            try {
-                Path path = Paths.get(UPLOAD_DIR + userDetails.getUsername() + "_Semester_" + sem
-                        + (fileName.matches(".*[.]pdf") ? ".pdf" : ".docx"));
-                System.out.println(path.toString());
-                if (new File(path.toString()).exists()) {
-                    System.out.println(path);
-                    attributes.addFlashAttribute("message", "File Already Exists");
-                    return "redirect:/upload";
-                } else {
-                    // File file1 = new File(path.toString());
-                    System.out.println(path);
-                    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Path path = Paths.get(UPLOAD_DIR + "/Semester_" + sem + "/" + userDetails.getUsername()
+                    + (fileName.matches(".*[.]pdf") ? ".pdf" : ".docx"));
+
+            File genFile = new File(path.toString());
+            System.out.println(genFile.getAbsolutePath());
+
+            if (genFile.exists()) {
+                attributes.addFlashAttribute("message", "File Already Exists");
+                return "redirect:/upload";
+            } else {
+                try (FileOutputStream fout = new FileOutputStream(genFile)) {
+                    InputStream fis = file.getInputStream();
+                    fout.write(fis.readAllBytes());
+                    System.out.println(genFile.getPath());
                     User user = userServ.getUserByRollNumber(userDetails.getUsername());
                     marksheetServ
-                            .saveMarkSheet(new MarkSheetDetails(user, user.getCurrentSemester() - 1, path.toString()));
-                }
-            } catch (IOException | DataAccessException e) {
-                if (e.getCause() instanceof JDBCException sqlEx) {
-                    // SQLException sqlEx = (SQLException) e.getCause();
-                    int sqlErrorCode = sqlEx.getErrorCode();
-                    if (sqlErrorCode == 1062) {
-                        attributes.addFlashAttribute("errorMessage",
-                                "You have already submitted the File for your Previous Semester");
-                        return "redirect:/upload";
+                            .saveMarkSheet(new MarkSheetDetails(user, sem, genFile.getPath()));
+
+                } catch (IOException | DataAccessException e) {
+                    if (e.getCause() instanceof JDBCException sqlEx) {
+                        // SQLException sqlEx = (SQLException) e.getCause();
+                        int sqlErrorCode = sqlEx.getErrorCode();
+                        if (sqlErrorCode == 1062) {
+                            attributes.addFlashAttribute("errorMessage",
+                                    "You have already submitted the File for your Previous Semester");
+                            return "redirect:/upload";
+                        }
                     }
                 }
             }

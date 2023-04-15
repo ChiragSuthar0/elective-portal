@@ -2,9 +2,11 @@
     width: 100%;
     text-align: center;
     font-size: 2rem;
+    margin: 0 auto;
 }
 
-select {
+select,
+.choice_det {
     width: 240px;
     color: #000000;
     border: 0;

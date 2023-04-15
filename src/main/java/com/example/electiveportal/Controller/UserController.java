@@ -2,6 +2,7 @@ package com.example.electiveportal.Controller;
 
 import com.example.electiveportal.BusinessLayer.UserDetailsImpl;
 import com.example.electiveportal.Entity.ChoiceDetails;
+import com.example.electiveportal.Entity.User;
 import com.example.electiveportal.Service.ChoiceDetailsService;
 import com.example.electiveportal.Service.ElectiveDetailsService;
 import com.example.electiveportal.Service.SubjectDetailsService;
@@ -84,6 +85,16 @@ public class UserController {
             }
             return "redirect:/error";
         }
-        return "ChoicesFilledSuccessfully";
+        redirectAttributes.addFlashAttribute("Message", "You have submitted your choices successfully");
+        return "redirect:/home";
+    }
+
+    @GetMapping("/choice-details")
+    public String getChoiceDetails(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.getUserByRollNumber(userDetails.getUsername());
+        model.addAttribute(user);
+        model.addAttribute("userChoices",
+                choiceDetailsService.getChoicesOfStudent(user));
+        return "ChoiceDetails";
     }
 }

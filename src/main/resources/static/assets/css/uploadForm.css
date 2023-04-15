@@ -25,30 +25,6 @@
     border-color: #b8daff;
 }
 
-.alert-primary-green {
-    text-align: center;
-    width: 50%;
-    margin: 0 auto;
-    color: #218500;
-    background-color: #cfffcc;
-    border-color: #ccffb8;
-}
-
-.alert-primary-red {
-    text-align: center;
-    color: #850018;
-    background-color: #ffcccc;
-    border-color: #ffb8b8;
-}
-
-.alert {
-    position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-}
-
 .myForm {
     margin: 0 auto !important;
 }
@@ -62,7 +38,8 @@
 /*    -ms-flex-wrap: wrap;*/
 /*}*/
 
-input, select {
+input,
+select {
     width: 35%;
 }
 

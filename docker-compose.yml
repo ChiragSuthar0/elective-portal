@@ -1,9 +1,8 @@
 version: "3"
 
 services:
-  appNode:
-    image: elective-portal
-    # image: elective-portal:initial
+  app:
+    image: elective-portal:testing
     restart: always
     # scale: 5
     build: .
@@ -16,6 +15,8 @@ services:
       MYSQL_PASSWORD: admin_password
       MYSQL_PORT: 3306
       MYSQL_DATABASE: elective_portal
+    volumes:
+      - C:\Users\sutha\Desktop\uploads:/app/Elective_Portal_Uploads
 
   dbNode:
     image: mysql:latest

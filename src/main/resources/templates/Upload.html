@@ -34,9 +34,9 @@
                         Out</a></div>
             </div>
             <div class="right">
-                <a href="#" class="current-user bold-text">
+                <a href="/choice-details" class="current-user bold-text">
                     <img src="./../static/Assets/user.png" th:src="@{/assets/images/user.png}" alt="">
-                    <span>Username</span>
+                    <span th:if="${user}" th:text="${user.firstName}"></span><span th:if="!${user}">Username</span>
                 </a>
             </div>
         </div>
@@ -44,7 +44,7 @@
 
     <section>
         <div class="container container-main">
-            <div class="row" th:if="${errorMessage}">
+            <div class="row alert alert-primary-red" th:if="${errorMessage}">
                 <p th:text="${errorMessage}"></p>
             </div>
             <div class="center-heading">
@@ -63,8 +63,8 @@
                             <label for="semester">Semester</label>
                             <select name="semester" id="semester">
                                 <th:block th:if="${user.currentSemester} >= 3">
-                                    <option th:each="i : ${#numbers.sequence(3, user.currentSemester)}" th:value="${i}"
-                                        th:text="Semester+' '+${i}"></option>
+                                    <option th:each="i : ${#numbers.sequence(3, user.currentSemester - 1)}"
+                                        th:value="${i}" th:text="Semester+' '+${i}"></option>
                                 </th:block>
                             </select>
                         </div>
